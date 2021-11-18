@@ -1,0 +1,305 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "API Title",
+    "version": "1.0"
+  },
+  "servers": [{ "url": "https://api.server.test/v1" }],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/auth_login_body"
+              },
+              "examples": {
+                "0": {
+                  "value": "\n{\n      \"login\":\"2@123\",\n    \"password\":\"1\"\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://danit-nodejs.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://danit-nodejs.herokuapp.com"
+        }
+      ]
+    },
+    "/auth/registration": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/auth_register_body"
+              },
+              "examples": {
+                "0": {
+                  "value": "\n{\n      \"login\":\"2@123\",\n    \"password\":\"1\"\n, \"role\":\"SELLER\"}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://danit-nodejs.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://danit-nodejs.herokuapp.com"
+        }
+      ]
+    },
+    "/items": {
+      "post": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/items_body"
+              },
+              "examples": {
+                "0": {
+                  "value": "\n{\n    \"title\":\"Sample product\",\n    \"price\":20,\n    \"quantity\":12\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "text/html; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://danit-nodejs.herokuapp.com"
+          }
+        ]
+      },
+      "get": {
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "text/html; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "servers": [
+        {
+          "url": "https://danit-nodejs.herokuapp.com"
+        }
+      ]
+    },
+    "/purchases": {
+      "post": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/purchases_body"
+              },
+              "examples": {
+                "0": {
+                  "value": "{\"itemId\":3,\n    \"count\":5}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "text/html; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://danit-nodejs.herokuapp.com"
+          }
+        ]
+      },
+      "get": {
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "text/html; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "servers": [
+        {
+          "url": "https://danit-nodejs.herokuapp.com"
+        }
+      ]
+    },
+    "/whoami": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://danit-nodejs.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://danit-nodejs.herokuapp.com"
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "purchases_body": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "integer"
+          },
+          "count": {
+            "type": "integer"
+          }
+        }
+      },
+      "items_body": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "auth_register_body": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "login": {
+            "type": "string"
+          },
+          "rolesadas": {
+            "type": "string"
+          }
+        }
+      },
+      "auth_login_body": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "login": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "http://yourauthurl.com",
+            "scopes": {
+              "scope_name": "Enter your scopes here"
+            }
+          }
+        }
+      }
+    }
+  }
+}
