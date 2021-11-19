@@ -5,17 +5,22 @@ export enum EnvEnum {
   PORT = 'PORT',
   SECRET_KEY = 'SECRET_KEY',
   ENV = 'ENV',
+  DATABASE_URL = 'DATABASE_URL',
+  HEROKU_URL = 'HEROKU_URL',
 }
 
-export const EnvConfig = {
-  PORT: '',
-  SECRET_KEY: '',
-  ENV: '',
+export let EnvConfig: Record<keyof typeof EnvEnum, any> = undefined;
+
+const initEnv = () => {
+  config();
+  const env = keys(EnvEnum).reduce(
+    (acc, k) => ({ ...acc, [k]: process.env[k] }),
+    {}
+  );
+
+  return env as Record<keyof typeof EnvEnum, any>;
 };
 
-export const createConfig = () => {
-  config();
-  keys(EnvConfig).map((k) => {
-    EnvConfig[k] = process.env[k];
-  });
-};
+if (!EnvConfig) {
+  EnvConfig = initEnv();
+}

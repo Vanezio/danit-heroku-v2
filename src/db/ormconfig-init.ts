@@ -2,19 +2,20 @@ import { verify } from 'jsonwebtoken';
 import path from 'path';
 import { promises } from 'fs';
 import { config } from 'dotenv';
+import { EnvConfig } from '../config';
 
 const init = async () => {
   config();
 
-  const extend = process.env.ENV === 'PROD' ? '.js' : '.ts';
+  const extend = `./${EnvConfig.ENV === 'PROD' ? 'dist' : 'src'}/db`;
 
   const opt = {
     type: 'postgres',
-    url: process.env.DATABASE_URL,
-    entities: [`entities/*.entity${extend}`],
-    migrations: [`migrations/*${extend}`],
+    url: EnvConfig.DATABASE_URL,
+    entities: [`${extend}/entities/*.entity{.ts,.js}`],
+    migrations: [`${extend}/migrations/*{.ts,.js}`],
     cli: {
-      migrationsDir: `.src/db/migrations`,
+      migrationsDir: `./src/db/migrations`,
     },
   };
 

@@ -3,12 +3,12 @@ import 'reflect-metadata';
 import express, { Request, Response } from 'express';
 
 import { registerRouters } from './api';
-import { createConfig, EnvConfig } from './config';
-// import { initConnection } from './db/ormconfig-init';
-
-createConfig();
+import { EnvConfig } from './config';
+import { createConnection } from 'typeorm';
 
 const app = express();
+
+  console.log(EnvConfig.ENV)
 
 app.get('/', async (req: Request, res: Response) => {
   res.send(`Im alive! ${EnvConfig.PORT}`);
@@ -16,7 +16,7 @@ app.get('/', async (req: Request, res: Response) => {
 
 registerRouters(app);
 
-initConnection().then(() => {
+createConnection().then(() => {
   app.listen(EnvConfig.PORT, () =>
     console.log(`Started on port ${EnvConfig.PORT}`)
   );

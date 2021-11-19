@@ -4,7 +4,6 @@
     "title": "API Title",
     "version": "1.0"
   },
-  "servers": [{ "url": "https://api.server.test/v1" }],
   "paths": {
     "/auth/login": {
       "post": {

@@ -10,16 +10,16 @@ export const swagger = (routePath = '/api/docs') => {
 
   const swaggerJSON = readFileSync(path.resolve('swag.json'), 'utf-8');
 
-  router.use(
-    routePath,
-    swaggerUi.serve,
-    swaggerUi.setup(JSON.parse(swaggerJSON))
-  );
+  const swaggerObject = JSON.parse(swaggerJSON);
+
+  swaggerObject.servers = [
+    { url: `http://localhost:${EnvConfig.PORT}` },
+    { url: EnvConfig.HEROKU_URL },
+  ];
+
+  router.use(routePath, swaggerUi.serve, swaggerUi.setup(swaggerObject));
 
   console.log('swagger setup');
 
   return router;
 };
-
-console.log(path.resolve(`src/db/files`));
-console.log(path.resolve('dist'));
