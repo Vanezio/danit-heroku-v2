@@ -22,3 +22,11 @@ export interface JwtPayload {
 
   login: string;
 }
+
+export type TUserSimple = Omit<
+  UserEntity,
+  'password' | 'purchases' | 'items'
+> & {
+  items?: ItemEntity[];
+  purchases?: ItemEntity[];
+};

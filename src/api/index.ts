@@ -18,11 +18,7 @@ export const registerRouters = (app: Express) => {
 
   app.use(files());
 
-  app.use('/', authMiddleware);
-
-  app.use('/whoami', (req: IRequest, res: Response) => {
-    return res.send(req.user);
-  });
+  app.use(authMiddleware);
 
   app.use('/purchases', purchasesRouter);
   app.use('/items', itemsRouter);

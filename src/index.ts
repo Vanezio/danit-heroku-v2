@@ -8,7 +8,7 @@ import { createConnection } from 'typeorm';
 
 const app = express();
 
-  console.log(EnvConfig.ENV)
+console.log(EnvConfig.ENV);
 
 app.get('/', async (req: Request, res: Response) => {
   res.send(`Im alive! ${EnvConfig.PORT}`);
@@ -17,6 +17,8 @@ app.get('/', async (req: Request, res: Response) => {
 registerRouters(app);
 
 createConnection().then(() => {
+  const a = app.routes;
+  console.log(a);
   app.listen(EnvConfig.PORT, () =>
     console.log(`Started on port ${EnvConfig.PORT}`)
   );

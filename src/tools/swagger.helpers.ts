@@ -8,7 +8,7 @@ import { Router } from 'express';
 export const swagger = (routePath = '/api/docs') => {
   const router = Router();
 
-  const swaggerJSON = readFileSync(path.resolve('swag.json'), 'utf-8');
+  const swaggerJSON = readFileSync(path.resolve('swag1.json'), 'utf-8');
 
   const swaggerObject = JSON.parse(swaggerJSON);
 

@@ -1,0 +1,613 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "shop classwork with runner",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://example.com",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/items": {
+      "get": {
+        "tags": ["items"],
+        "summary": "/items",
+        "operationId": "/items",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": ["seller"],
+        "summary": "/tems",
+        "operationId": "/tems",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/temsrequest"
+              },
+              "example": {
+                "title": "Name",
+                "price": 100,
+                "quantity": 20
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/items/{itemId}": {
+      "get": {
+        "tags": ["items"],
+        "summary": "/items/:id",
+        "operationId": "/items/:id",
+        "parameters": [
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "patch": {
+        "tags": ["seller"],
+        "summary": "/iitems/:id",
+        "operationId": "/iitems/:id",
+        "parameters": [
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/iitemsidrequest"
+              },
+              "example": {
+                "quantity": -1
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/auth/registration": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "/auth/registration",
+        "operationId": "/auth/registration",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/authregistrationrequest"
+              },
+              "example": {
+                "login": "cus",
+                "password": "123",
+                "role": "CUSTOMER"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "/auth/login",
+        "operationId": "/auth/login",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/authloginrequest"
+              },
+              "example": {
+                "login": "testSeller",
+                "password": "123"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/whoami": {
+      "get": {
+        "tags": ["auth"],
+        "summary": "/whoami",
+        "operationId": "/whoami",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/users/1": {
+      "get": {
+        "tags": ["user"],
+        "summary": "/users/:id",
+        "operationId": "/users/:id",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/users/whoami": {
+      "get": {
+        "tags": ["user"],
+        "summary": "/users/whoami",
+        "operationId": "/users/whoami",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/balance": {
+      "patch": {
+        "tags": ["user"],
+        "summary": "/balance",
+        "operationId": "/balance",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/balancerequest"
+              },
+              "example": {
+                "count": 200
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/items/1": {
+      "get": {
+        "tags": ["seller"],
+        "summary": "/items/:id",
+        "operationId": "Get/items/:id",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/purchases": {
+      "get": {
+        "tags": ["purchase"],
+        "summary": "/purchases",
+        "operationId": "/purchases",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": ["purchase"],
+        "summary": "/purchases",
+        "operationId": "Post/purchases",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/purchasesrequest"
+              },
+              "example": {
+                "itemId": 2,
+                "count": "sadsads"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/purchases/1": {
+      "patch": {
+        "tags": ["purchase"],
+        "summary": "/purchases/:id",
+        "operationId": "/purchases/:id",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/purchasesidrequest"
+              },
+              "example": {
+                "status": "PENDING"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/purchases/": {
+      "patch": {
+        "tags": ["runner"],
+        "summary": "/purchases1",
+        "operationId": "/purchases1",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/purchasesrequest2"
+              },
+              "example": {
+                "status": ""
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/upload": {
+      "post": {
+        "tags": ["Misc"],
+        "summary": "TEST",
+        "operationId": "TEST",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": ["test"],
+                "type": "object",
+                "properties": {
+                  "test": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/download/carbon.png": {
+      "get": {
+        "tags": ["Misc"],
+        "summary": "GET FILE",
+        "operationId": "GETFILE",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "authregistrationrequest": {
+        "title": "authregistrationrequest",
+        "required": ["login", "password", "role"],
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "login": "cus",
+          "password": "123",
+          "role": "CUSTOMER"
+        }
+      },
+      "authloginrequest": {
+        "title": "authloginrequest",
+        "required": ["login", "password"],
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "login": "testSeller",
+          "password": "123"
+        }
+      },
+      "balancerequest": {
+        "title": "balancerequest",
+        "required": ["count"],
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "count": 200
+        }
+      },
+      "temsrequest": {
+        "title": "temsrequest",
+        "required": ["title", "price", "quantity"],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "title": "Name",
+          "price": 100,
+          "quantity": 20
+        }
+      },
+      "iitemsidrequest": {
+        "title": "iitemsidrequest",
+        "required": ["quantity"],
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "quantity": -1
+        }
+      },
+      "purchasesidrequest": {
+        "title": "purchasesidrequest",
+        "required": ["status"],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": "PENDING"
+        }
+      },
+      "purchasesrequest": {
+        "title": "purchasesrequest",
+        "required": ["itemId", "count"],
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "itemId": 2,
+          "count": "sadsads"
+        }
+      },
+      "purchasesrequest1": {
+        "title": "purchasesrequest1",
+        "required": ["itemId", "count"],
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "itemId": null,
+          "count": 2
+        }
+      },
+      "purchasesrequest2": {
+        "title": "purchasesrequest2",
+        "required": ["status"],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": ""
+        }
+      }
+    },
+    "securitySchemes": {
+      "httpBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "httpBearer": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "items"
+    },
+    {
+      "name": "auth"
+    },
+    {
+      "name": "user"
+    },
+    {
+      "name": "seller"
+    },
+    {
+      "name": "purchase"
+    },
+    {
+      "name": "runner"
+    },
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}
