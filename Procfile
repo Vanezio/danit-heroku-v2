@@ -1,1 +1,1 @@
-web: npm run start
+web: ENV=PROD PGSSLMODE=no-verify node dist/index.js
