@@ -16,6 +16,7 @@ const init = async () => {
     cli: {
       migrationsDir: `./src/db/migrations`,
     },
+    synchronize: true,
   };
 
   await promises.writeFile(
