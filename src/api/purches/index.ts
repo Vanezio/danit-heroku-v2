@@ -6,10 +6,10 @@ import { patchPurchases } from './patch';
 import { PurchaseEntity } from '../../db/entities/purchase.entity';
 import {
   checkEntityId,
-  PatchPurchaseRequest,
   validationMiddleware,
 } from '../../tools/wrapper.helpers';
-import { PostPurchaseRequest } from './requests/post-item.request';
+import { PostPurchaseRequest } from './requests/post-purchase.request';
+import { PatchPurchaseRequest } from './requests/patch-purchase.request';
 
 const router = Router();
 

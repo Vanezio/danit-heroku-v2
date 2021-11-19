@@ -4,6 +4,7 @@ import { UserRoleEnum } from '../../enums/user-role.enum';
 import { Base } from './base.entity';
 import { ItemEntity } from './item.entity';
 import { PurchaseEntity } from './purchase.entity';
+import { ChatMemberEntity } from './chat-member.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity extends Base {
@@ -34,6 +35,9 @@ export class UserEntity extends Base {
 
   @OneToMany(() => PurchaseEntity, (purchase) => purchase.customer)
   public purchases: Promise<PurchaseEntity[]>;
+
+  @OneToMany(() => ChatMemberEntity, (member) => member.user)
+  public chatMembers: Promise<ChatMemberEntity>;
 
   @BeforeInsert()
   encryptPassword() {

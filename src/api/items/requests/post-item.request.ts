@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString, Matches, Min } from 'class-validator';
-import { BaseRequest } from '../../../tools/wrapper.helpers';
+import { BaseRequest } from '../../../common/base.request';
 
 export const MIN_ITEM_PRICE = 1;
 

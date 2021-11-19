@@ -1,6 +1,6 @@
 import path from 'path';
 import { readFileSync, writeFile } from 'fs';
-import { config } from 'dotenv';
+import express, { Request, Response } from 'express';
 import { EnvConfig } from '../config';
 import swaggerUi from 'swagger-ui-express';
 import { Router } from 'express';
@@ -16,6 +16,10 @@ export const swagger = (routePath = '/api/docs') => {
     { url: `http://localhost:${EnvConfig.PORT}` },
     { url: EnvConfig.HEROKU_URL },
   ];
+
+  router.get('/', async (req: Request, res: Response) => {
+    res.redirect(routePath);
+  });
 
   router.use(routePath, swaggerUi.serve, swaggerUi.setup(swaggerObject));
 

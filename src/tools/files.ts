@@ -26,5 +26,3 @@ export const files = () => {
 
   return router;
 };
-
-console.log(path.resolve('ormconfig.json'));

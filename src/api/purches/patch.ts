@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { PurchaseEntity } from '../../db/entities/purchase.entity';
-import { HttpError, wrapper } from '../../tools/wrapper.helpers';
+import { wrapper } from '../../tools/wrapper.helpers';
+import { HttpError } from '../../common/errors';
 import { PurchaseStatusEnum } from '../../enums/purchase-status.enum';
 import { ItemEntity } from '../../db/entities/item.entity';
 import { IEntityRequest } from '../../types';
@@ -8,20 +9,6 @@ import { IEntityRequest } from '../../types';
 export const patchPurchases = wrapper(
   async (req: IEntityRequest<PurchaseEntity>, res: Response) => {
     const { status } = req.body;
-
-    if (!status) {
-      throw new HttpError('Please, provide status to change');
-    }
-
-    const availableStatuses = Object.values(PurchaseStatusEnum);
-
-    if (!availableStatuses.includes(status)) {
-      throw new HttpError(
-        `Please, provide valid status to change. Status have to be one of the next: ${availableStatuses.join(
-          ', '
-        )}`
-      );
-    }
 
     const purchase = req.entity;
 

@@ -2,7 +2,8 @@ import { Response } from 'express';
 import { assign, pick } from 'lodash';
 import { PurchaseEntity } from '../../db/entities/purchase.entity';
 import { IRequest } from '../../types';
-import { HttpError, wrapper } from '../../tools/wrapper.helpers';
+import { wrapper } from '../../tools/wrapper.helpers';
+import { HttpError } from '../../common/errors';
 import { ItemEntity } from '../../db/entities/item.entity';
 
 export const postPurchases = wrapper(async (req: IRequest, res: Response) => {

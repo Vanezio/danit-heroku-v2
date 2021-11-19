@@ -1,15 +1,12 @@
-import { ItemEntity } from './../../db/entities/item.entity';
-import { HttpError, wrapper } from '../../tools/wrapper.helpers';
-import { Request, Response } from 'express';
-import { IEntityRequest, IRequest } from '../../types';
+import { Response } from 'express';
 
+import { HttpError } from '../../common/errors';
 import { UserEntity } from '../../db/entities/user.entity';
 import { UserRoleEnum } from '../../enums/user-role.enum';
+import { wrapper } from '../../tools/wrapper.helpers';
+import { IEntityRequest } from '../../types';
 import { AccountResponse } from './responses/account.response';
 import { WhoamiResponse } from './responses/whoami.response';
-import { In } from 'typeorm';
-import { map } from 'lodash';
-import { PurchaseEntity } from '../../db/entities/purchase.entity';
 
 export const getUserAccount = wrapper(
   async (req: IEntityRequest<UserEntity>, res: Response) => {

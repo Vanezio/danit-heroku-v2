@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { assign, pick } from 'lodash';
 import { UserEntity } from '../../db/entities/user.entity';
 import JwtService from '../../services/jwt.service';
-import { HttpError, wrapper } from '../../tools/wrapper.helpers';
+import { wrapper } from '../../tools/wrapper.helpers';
+import { HttpError } from '../../common/errors';
 
 export const registration = wrapper(async (req: Request, res: Response) => {
   const data = pick(req.body, 'login', 'password', 'role');

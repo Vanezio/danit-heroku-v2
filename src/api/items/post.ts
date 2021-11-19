@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { assign, pick } from 'lodash';
 import { ItemEntity } from '../../db/entities/item.entity';
 import { UserRoleEnum } from '../../enums/user-role.enum';
-import { HttpError, wrapper } from '../../tools/wrapper.helpers';
+import { wrapper } from '../../tools/wrapper.helpers';
+import { HttpError } from '../../common/errors';
 import { IRequest } from '../../types';
 
 export const postItems = wrapper(async (req: IRequest, res: Response) => {

@@ -1,29 +1,10 @@
+import { validateOrReject } from 'class-validator';
 import { Request, Response } from 'express';
-import { assign } from 'lodash';
 import { BaseEntity } from 'typeorm';
-import { PurchaseStatusEnum } from '../enums/purchase-status.enum';
+
+import { BaseRequest } from '../common/base.request';
+import { HttpValidationError } from '../common/errors';
 import { IEntityRequest, IRequest } from '../types';
-import {
-  IsEnum,
-  validate,
-  validateOrReject,
-  ValidationError,
-} from 'class-validator';
-export class HttpError extends Error {
-  public statusCode: number;
-
-  constructor(message?: string, statusCode: number = 400) {
-    super(message);
-
-    this.statusCode = statusCode;
-  }
-}
-
-export class HttpValidationError extends HttpError {
-  constructor(public errors: ValidationError[]) {
-    super('Validation error', 400);
-  }
-}
 
 export function wrapper(func: Function) {
   return async function (req: Request, res: Response, next: Function) {
@@ -60,16 +41,6 @@ export const checkEntityId = <T extends typeof BaseEntity>(entity: T) => {
   };
 };
 
-export class BaseRequest {
-  constructor(data: BaseRequest) {
-    assign(this, data);
-  }
-}
-
-export class PatchPurchaseRequest extends BaseRequest {
-  @IsEnum([PurchaseStatusEnum.CANCELLED, PurchaseStatusEnum.FULFILLED])
-  status: PurchaseStatusEnum;
-}
 export const validationMiddleware = <T extends typeof BaseRequest>(entity: T) =>
   wrapper(async (req: IRequest, res: Response, next) => {
     const body = req.body as unknown as T;

@@ -3,7 +3,6 @@ import { getUserAccount, getOwnAccount } from './get';
 
 import {
   checkEntityId,
-  PatchPurchaseRequest,
   validationMiddleware,
 } from '../../tools/wrapper.helpers';
 import { PurchaseEntity } from '../../db/entities/purchase.entity';

@@ -1,9 +1,8 @@
-import { Express, json, Response } from 'express';
+import { Express, json } from 'express';
 
+import { HttpError } from '../common/errors';
 import { files } from '../tools/files';
-import { swagger } from '../tools/swagger.helpers';
-import { IRequest } from '../types';
-import { HttpError } from './../tools/wrapper.helpers';
+import { swagger } from '../tools/swagger';
 import accountsRouter from './accounts/route';
 import authRouter from './auth';
 import { authMiddleware } from './auth/auth.middleware';

@@ -1,4 +1,3 @@
-import { verify } from 'jsonwebtoken';
 import path from 'path';
 import { promises } from 'fs';
 import { config } from 'dotenv';

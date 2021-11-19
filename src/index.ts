@@ -11,7 +11,7 @@ const app = express();
 console.log(EnvConfig.ENV);
 
 app.get('/', async (req: Request, res: Response) => {
-  res.send(`Im alive! ${EnvConfig.PORT}`);
+  res.redirect('/api/docs');
 });
 
 registerRouters(app);
