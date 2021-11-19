@@ -36,18 +36,8 @@
               }
             }
           }
-        },
-        "servers": [
-          {
-            "url": "https://danit-nodejs.herokuapp.com"
-          }
-        ]
-      },
-      "servers": [
-        {
-          "url": "https://danit-nodejs.herokuapp.com"
         }
-      ]
+      }
     },
     "/auth/registration": {
       "post": {
@@ -79,18 +69,8 @@
               }
             }
           }
-        },
-        "servers": [
-          {
-            "url": "https://danit-nodejs.herokuapp.com"
-          }
-        ]
-      },
-      "servers": [
-        {
-          "url": "https://danit-nodejs.herokuapp.com"
         }
-      ]
+      }
     },
     "/items": {
       "post": {
@@ -121,12 +101,7 @@
               }
             }
           }
-        },
-        "servers": [
-          {
-            "url": "https://danit-nodejs.herokuapp.com"
-          }
-        ]
+        }
       },
       "get": {
         "responses": {
@@ -142,12 +117,7 @@
             }
           }
         }
-      },
-      "servers": [
-        {
-          "url": "https://danit-nodejs.herokuapp.com"
-        }
-      ]
+      }
     },
     "/purchases": {
       "post": {
@@ -178,12 +148,7 @@
               }
             }
           }
-        },
-        "servers": [
-          {
-            "url": "https://danit-nodejs.herokuapp.com"
-          }
-        ]
+        }
       },
       "get": {
         "responses": {
@@ -199,12 +164,7 @@
             }
           }
         }
-      },
-      "servers": [
-        {
-          "url": "https://danit-nodejs.herokuapp.com"
-        }
-      ]
+      }
     },
     "/whoami": {
       "get": {
@@ -221,18 +181,8 @@
               }
             }
           }
-        },
-        "servers": [
-          {
-            "url": "https://danit-nodejs.herokuapp.com"
-          }
-        ]
-      },
-      "servers": [
-        {
-          "url": "https://danit-nodejs.herokuapp.com"
         }
-      ]
+      }
     }
   },
   "components": {

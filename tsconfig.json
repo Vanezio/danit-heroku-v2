@@ -11,8 +11,7 @@
     "baseUrl": "src",
     "outDir": "dist",
     "types": ["node"],
-    "incremental": true,
-    "resolveJsonModule": true
+    "incremental": true
   },
   "exclude": ["node_modules", "dist"]
 }

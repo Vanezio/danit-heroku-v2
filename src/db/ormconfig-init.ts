@@ -1,14 +1,27 @@
-import { createConnection } from 'typeorm';
-import { ItemEntity } from './entities/item.entity';
-import { PurchaseEntity } from './entities/purchase.entity';
-import { UserEntity } from './entities/user.entity';
+import { verify } from 'jsonwebtoken';
+import path from 'path';
+import { promises } from 'fs';
 import { config } from 'dotenv';
 
-export const initConnection = async () => {
+const init = async () => {
   config();
-  await createConnection({
-    url: process.env.DATABASE_URL,
+
+  const extend = process.env.ENV === 'PROD' ? '.js' : '.ts';
+
+  const opt = {
     type: 'postgres',
-    entities: [UserEntity, ItemEntity, PurchaseEntity],
-  });
+    url: process.env.DATABASE_URL,
+    entities: [`entities/*.entity${extend}`],
+    migrations: [`migrations/*${extend}`],
+    cli: {
+      migrationsDir: `.src/db/migrations`,
+    },
+  };
+
+  await promises.writeFile(
+    path.resolve('ormconfig.json'),
+    JSON.stringify(opt, null, 4)
+  );
 };
+
+init().then(() => console.log('ormconfig created'));

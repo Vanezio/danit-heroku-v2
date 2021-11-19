@@ -4,7 +4,7 @@ import express, { Request, Response } from 'express';
 
 import { registerRouters } from './api';
 import { createConfig, EnvConfig } from './config';
-import { initConnection } from './db/ormconfig-init';
+// import { initConnection } from './db/ormconfig-init';
 
 createConfig();
 
