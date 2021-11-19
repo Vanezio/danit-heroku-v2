@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "ENV=DEV npm run orm:init && ENV=DEV nodemon src/index.ts",
     "prebuild": "rimraf dist",
-    "postinstall": "npm run build",
     "build": "tsc --build && ENV=PROD npm run orm:init",
     "orm:init": "node --require ts-node/register src/db/ormconfig-init.ts",
     "o:d": "ENV=DEV npm run orm:init",
