@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "shop classwork with runner",
+    "title": "shop classwork",
     "contact": {},
     "version": "1.0"
   },
@@ -14,7 +14,9 @@
   "paths": {
     "/items": {
       "get": {
-        "tags": ["items"],
+        "tags": [
+          "items"
+        ],
         "summary": "/items",
         "operationId": "/items",
         "parameters": [],
@@ -27,21 +29,22 @@
         "deprecated": false
       },
       "post": {
-        "tags": ["seller"],
-        "summary": "/tems",
-        "operationId": "/tems",
+        "tags": [
+          "items"
+        ],
+        "summary": "Add item",
+        "operationId": "Additem",
         "parameters": [],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/temsrequest"
+                "$ref": "#/components/schemas/AdditemRequest"
               },
               "example": {
-                "title": "Name",
                 "price": 100,
-                "quantity": 20
+                "quantity": 10,
+                "title": "My item 2"
               }
             }
           },
@@ -56,16 +59,17 @@
         "deprecated": false
       }
     },
-    "/items/{itemId}": {
+    "/items/{id}": {
       "get": {
-        "tags": ["items"],
+        "tags": [
+          "items"
+        ],
         "summary": "/items/:id",
         "operationId": "/items/:id",
         "parameters": [
           {
-            "name": "itemId",
+            "name": "id",
             "in": "path",
-            "description": "",
             "required": true,
             "style": "simple",
             "schema": {
@@ -82,14 +86,15 @@
         "deprecated": false
       },
       "patch": {
-        "tags": ["seller"],
-        "summary": "/iitems/:id",
-        "operationId": "/iitems/:id",
+        "tags": [
+          "seller"
+        ],
+        "summary": "/items/:id",
+        "operationId": "Patch/items/:id",
         "parameters": [
           {
-            "name": "itemId",
+            "name": "id",
             "in": "path",
-            "description": "",
             "required": true,
             "style": "simple",
             "schema": {
@@ -98,14 +103,13 @@
           }
         ],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/iitemsidrequest"
+                "$ref": "#/components/schemas/itemsidrequest"
               },
               "example": {
-                "quantity": -1
+                "quantity": 30
               }
             }
           },
@@ -122,19 +126,20 @@
     },
     "/auth/registration": {
       "post": {
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "summary": "/auth/registration",
         "operationId": "/auth/registration",
         "parameters": [],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/authregistrationrequest"
               },
               "example": {
-                "login": "cus",
+                "login": "testCustomer2",
                 "password": "123",
                 "role": "CUSTOMER"
               }
@@ -153,19 +158,20 @@
     },
     "/auth/login": {
       "post": {
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "summary": "/auth/login",
         "operationId": "/auth/login",
         "parameters": [],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/authloginrequest"
               },
               "example": {
-                "login": "testSeller",
+                "login": "testCustomer",
                 "password": "123"
               }
             }
@@ -183,37 +189,9 @@
     },
     "/whoami": {
       "get": {
-        "tags": ["auth"],
-        "summary": "/whoami",
-        "operationId": "/whoami",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/users/1": {
-      "get": {
-        "tags": ["user"],
-        "summary": "/users/:id",
-        "operationId": "/users/:id",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/users/whoami": {
-      "get": {
-        "tags": ["user"],
+        "tags": [
+          "user"
+        ],
         "summary": "/users/whoami",
         "operationId": "/users/whoami",
         "parameters": [],
@@ -226,53 +204,11 @@
         "deprecated": false
       }
     },
-    "/balance": {
-      "patch": {
-        "tags": ["user"],
-        "summary": "/balance",
-        "operationId": "/balance",
-        "parameters": [],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/balancerequest"
-              },
-              "example": {
-                "count": 200
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/items/1": {
-      "get": {
-        "tags": ["seller"],
-        "summary": "/items/:id",
-        "operationId": "Get/items/:id",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/purchases": {
       "get": {
-        "tags": ["purchase"],
+        "tags": [
+          "purchase"
+        ],
         "summary": "/purchases",
         "operationId": "/purchases",
         "parameters": [],
@@ -285,20 +221,21 @@
         "deprecated": false
       },
       "post": {
-        "tags": ["purchase"],
+        "tags": [
+          "purchase"
+        ],
         "summary": "/purchases",
         "operationId": "Post/purchases",
         "parameters": [],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/purchasesrequest"
               },
               "example": {
-                "itemId": 2,
-                "count": "sadsads"
+                "itemId": 1,
+                "count": 1
               }
             }
           },
@@ -313,21 +250,32 @@
         "deprecated": false
       }
     },
-    "/purchases/1": {
+    "/purchases/{id}": {
       "patch": {
-        "tags": ["purchase"],
+        "tags": [
+          "purchase"
+        ],
         "summary": "/purchases/:id",
         "operationId": "/purchases/:id",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/purchasesidrequest"
               },
               "example": {
-                "status": "PENDING"
+                "status": "CANCELLED"
               }
             }
           },
@@ -342,21 +290,106 @@
         "deprecated": false
       }
     },
-    "/purchases/": {
-      "patch": {
-        "tags": ["runner"],
-        "summary": "/purchases1",
-        "operationId": "/purchases1",
+    "/cards": {
+      "post": {
+        "tags": [
+          "cards"
+        ],
+        "summary": "add new card",
+        "operationId": "addnewcard",
         "parameters": [],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/purchasesrequest2"
+                "$ref": "#/components/schemas/addnewcardrequest"
               },
               "example": {
-                "status": ""
+                "number": "4485614592783348",
+                "expired": "05/23",
+                "cvv": "297"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "cards"
+        ],
+        "summary": "get all cards",
+        "operationId": "getallcards",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/cards/{id}": {
+      "delete": {
+        "tags": [
+          "cards"
+        ],
+        "summary": "delete card",
+        "operationId": "deletecard",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/cards/withdraw/{id}": {
+      "patch": {
+        "tags": [
+          "cards"
+        ],
+        "summary": "withdraw from account",
+        "operationId": "withdrawfromaccount",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/withdrawfromaccountrequest"
+              },
+              "example": {
+                "sum": 10
               }
             }
           },
@@ -371,44 +404,37 @@
         "deprecated": false
       }
     },
-    "/upload": {
-      "post": {
-        "tags": ["Misc"],
-        "summary": "TEST",
-        "operationId": "TEST",
-        "parameters": [],
+    "/cards/deposit/{id}": {
+      "patch": {
+        "tags": [
+          "cards"
+        ],
+        "summary": "deposit to account",
+        "operationId": "deposittoaccount",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
-            "application/x-www-form-urlencoded": {
-              "encoding": {},
+            "application/json": {
               "schema": {
-                "required": ["test"],
-                "type": "object",
-                "properties": {
-                  "test": {
-                    "type": "string"
-                  }
-                }
+                "$ref": "#/components/schemas/deposittoaccountrequest"
+              },
+              "example": {
+                "summ": 442
               }
             }
           },
-          "required": false
+          "required": true
         },
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/download/carbon.png": {
-      "get": {
-        "tags": ["Misc"],
-        "summary": "GET FILE",
-        "operationId": "GETFILE",
-        "parameters": [],
         "responses": {
           "200": {
             "description": "",
@@ -421,9 +447,40 @@
   },
   "components": {
     "schemas": {
+      "AdditemRequest": {
+        "title": "AdditemRequest",
+        "required": [
+          "price",
+          "quantity",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "price": 100,
+          "quantity": 10,
+          "title": "My item 2"
+        }
+      },
       "authregistrationrequest": {
         "title": "authregistrationrequest",
-        "required": ["login", "password", "role"],
+        "required": [
+          "login",
+          "password",
+          "role"
+        ],
         "type": "object",
         "properties": {
           "login": {
@@ -437,14 +494,17 @@
           }
         },
         "example": {
-          "login": "cus",
+          "login": "testCustomer2",
           "password": "123",
           "role": "CUSTOMER"
         }
       },
       "authloginrequest": {
         "title": "authloginrequest",
-        "required": ["login", "password"],
+        "required": [
+          "login",
+          "password"
+        ],
         "type": "object",
         "properties": {
           "login": {
@@ -455,13 +515,15 @@
           }
         },
         "example": {
-          "login": "testSeller",
+          "login": "testCustomer",
           "password": "123"
         }
       },
       "balancerequest": {
         "title": "balancerequest",
-        "required": ["count"],
+        "required": [
+          "count"
+        ],
         "type": "object",
         "properties": {
           "count": {
@@ -475,7 +537,11 @@
       },
       "temsrequest": {
         "title": "temsrequest",
-        "required": ["title", "price", "quantity"],
+        "required": [
+          "title",
+          "price",
+          "quantity"
+        ],
         "type": "object",
         "properties": {
           "title": {
@@ -492,13 +558,15 @@
         },
         "example": {
           "title": "Name",
-          "price": 100,
+          "price": 25,
           "quantity": 20
         }
       },
-      "iitemsidrequest": {
-        "title": "iitemsidrequest",
-        "required": ["quantity"],
+      "itemsidrequest": {
+        "title": "itemsidrequest",
+        "required": [
+          "quantity"
+        ],
         "type": "object",
         "properties": {
           "quantity": {
@@ -507,12 +575,14 @@
           }
         },
         "example": {
-          "quantity": -1
+          "quantity": 30
         }
       },
       "purchasesidrequest": {
         "title": "purchasesidrequest",
-        "required": ["status"],
+        "required": [
+          "status"
+        ],
         "type": "object",
         "properties": {
           "status": {
@@ -520,12 +590,15 @@
           }
         },
         "example": {
-          "status": "PENDING"
+          "status": "CANCELLED"
         }
       },
       "purchasesrequest": {
         "title": "purchasesrequest",
-        "required": ["itemId", "count"],
+        "required": [
+          "itemId",
+          "count"
+        ],
         "type": "object",
         "properties": {
           "itemId": {
@@ -533,44 +606,70 @@
             "format": "int32"
           },
           "count": {
-            "type": "string"
-          }
-        },
-        "example": {
-          "itemId": 2,
-          "count": "sadsads"
-        }
-      },
-      "purchasesrequest1": {
-        "title": "purchasesrequest1",
-        "required": ["itemId", "count"],
-        "type": "object",
-        "properties": {
-          "itemId": {
-            "type": "string",
-            "nullable": true
-          },
-          "count": {
             "type": "integer",
             "format": "int32"
           }
         },
         "example": {
-          "itemId": null,
-          "count": 2
+          "itemId": 1,
+          "count": 1
         }
       },
-      "purchasesrequest2": {
-        "title": "purchasesrequest2",
-        "required": ["status"],
+      "addnewcardrequest": {
+        "title": "addnewcardrequest",
+        "required": [
+          "number",
+          "expired",
+          "cvv"
+        ],
         "type": "object",
         "properties": {
-          "status": {
+          "number": {
+            "type": "string"
+          },
+          "expired": {
+            "type": "string"
+          },
+          "cvv": {
             "type": "string"
           }
         },
         "example": {
-          "status": ""
+          "number": "4485614592783348",
+          "expired": "05/23",
+          "cvv": "297"
+        }
+      },
+      "withdrawfromaccountrequest": {
+        "title": "withdrawfromaccountrequest",
+        "required": [
+          "sum"
+        ],
+        "type": "object",
+        "properties": {
+          "sum": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "sum": 10
+        }
+      },
+      "deposittoaccountrequest": {
+        "title": "deposittoaccountrequest",
+        "required": [
+          "summ"
+        ],
+        "type": "object",
+        "properties": {
+          "summ": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "summ": 442
         }
       }
     },
@@ -603,11 +702,10 @@
       "name": "purchase"
     },
     {
-      "name": "runner"
+      "name": "files"
     },
     {
-      "name": "Misc",
-      "description": ""
+      "name": "cards"
     }
   ]
 }
