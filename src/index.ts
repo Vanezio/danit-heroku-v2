@@ -8,8 +8,6 @@ import { createConnection } from 'typeorm';
 
 const app = express();
 
-console.log(EnvConfig.ENV);
-
 app.get('/', async (req: Request, res: Response) => {
   res.redirect('/api/docs');
 });
@@ -17,8 +15,6 @@ app.get('/', async (req: Request, res: Response) => {
 registerRouters(app);
 
 createConnection().then(() => {
-  const a = app.routes;
-  console.log(a);
   app.listen(EnvConfig.PORT, () =>
     console.log(`Started on port ${EnvConfig.PORT}`)
   );
