@@ -7,7 +7,7 @@
     "dev": "cross-env ENV=DEV npm run orm:init && cross-env ENV=DEV nodemon src/index.ts",
     "prebuild": "rimraf dist",
     "build": "tsc --build && cross-env ENV=PROD npm run orm:init",
-    "postinstall": "tsc --build && ENV=PROD npm run orm:init",
+    "postinstall": "tsc --build && cross-env ENV=PROD npm run orm:init",
     "orm:init": "node --require ts-node/register src/db/ormconfig-init.ts",
     "o:d": "cross-env ENV=DEV npm run orm:init",
     "o:p": "cross-env ENV=PROD npm run orm:init",
