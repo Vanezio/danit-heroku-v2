@@ -1,10 +1,11 @@
-import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
 import crypto from 'crypto';
+import { BeforeInsert, Column, Entity, In, OneToMany } from 'typeorm';
 import { UserRoleEnum } from '../../enums/user-role.enum';
 import { Base } from './base.entity';
+import { ChatMemberEntity } from './chat-member.entity';
+import { ChatEntity } from './chat.entity';
 import { ItemEntity } from './item.entity';
 import { PurchaseEntity } from './purchase.entity';
-import { ChatMemberEntity } from './chat-member.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity extends Base {
@@ -37,11 +38,25 @@ export class UserEntity extends Base {
   public purchases: Promise<PurchaseEntity[]>;
 
   @OneToMany(() => ChatMemberEntity, (member) => member.user)
-  public chatMembers: Promise<ChatMemberEntity>;
+  public chatMembers: Promise<ChatMemberEntity[]>;
 
   @BeforeInsert()
   encryptPassword() {
     this.password = this.getPasswordHash(this.password);
+  }
+
+  async isUserInChat(chatId: number) {
+    const isUserInChat = (await this.chatMembers).some(
+      (member) => member.chatId === chatId
+    );
+    return isUserInChat;
+  }
+
+  async getChats() {
+    const chatIds = (await this.chatMembers).map((member) => member.chatId);
+
+    return ChatEntity.find({ where: { id: In(chatIds) } });
+    // const aa = await
   }
 
   verifyPassword(password: string) {

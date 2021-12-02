@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import { Dictionary, keys } from 'lodash';
+import { keys } from 'lodash';
 
 export enum EnvEnum {
   PORT = 'PORT',

@@ -1,10 +1,9 @@
-import { UserEntity } from './db/entities/user.entity';
 import { Request } from 'express';
-import { UserRoleEnum } from './enums/user-role.enum';
+import { Socket } from 'socket.io';
 import { BaseEntity } from 'typeorm';
 import { ItemEntity } from './db/entities/item.entity';
-import { Base } from './db/entities/base.entity';
-import { Socket } from 'socket.io';
+import { UserEntity } from './db/entities/user.entity';
+import { UserRoleEnum } from './enums/user-role.enum';
 import { WsChatEventsEnum } from './enums/ws-chat.events.enum';
 
 export interface IRequest extends Request {
@@ -46,3 +45,23 @@ export type TUserSimple = Omit<
   items?: ItemEntity[];
   purchases?: ItemEntity[];
 };
+
+export type TSocketMessage<T = IChatPayload> = {
+  event: WsChatEventsEnum;
+
+  payload: T;
+};
+
+export interface IChatPayload {
+  userId: number;
+
+  chatId: number;
+
+  messageId: number;
+
+  data: string;
+}
+
+export type TSendMessage = Omit<IChatPayload, 'messageId'>;
+
+export type TDeleteMessage = Omit<IChatPayload, 'data'>;
