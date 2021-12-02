@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import { Dictionary, keys } from 'lodash';
+import { keys } from 'lodash';
 
 export enum EnvEnum {
   PORT = 'PORT',
@@ -7,6 +7,7 @@ export enum EnvEnum {
   ENV = 'ENV',
   DATABASE_URL = 'DATABASE_URL',
   HEROKU_URL = 'HEROKU_URL',
+  SOCKET_PORT = 'SOCKET_PORT',
 }
 
 export let EnvConfig: Record<keyof typeof EnvEnum, any> = undefined;

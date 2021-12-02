@@ -1,21 +1,25 @@
+import cors from 'cors';
+import express from 'express';
 import 'reflect-metadata';
-
-import express, { Request, Response } from 'express';
-
+import { createConnection } from 'typeorm';
 import { registerRouters } from './api';
 import { EnvConfig } from './config';
-import { createConnection } from 'typeorm';
-
+import { registerSockets } from './web-sockets';
 const app = express();
 
-app.get('/', async (req: Request, res: Response) => {
-  res.redirect('/api/docs');
-});
-
-registerRouters(app);
-
+app.use(cors());
 createConnection().then(() => {
-  app.listen(EnvConfig.PORT, () =>
+  app.get('/ww', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+  });
+
+  registerRouters(app);
+
+  express();
+
+  const server = registerSockets(app);
+
+  server.listen(EnvConfig.PORT, () =>
     console.log(`Started on port ${EnvConfig.PORT}`)
   );
   console.log('Connected to DB!');
