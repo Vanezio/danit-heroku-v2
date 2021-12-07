@@ -1,8 +1,8 @@
-import { UserEntity } from '../../db/entities/user.entity';
-import JwtService from '../../services/jwt.service';
 import { Response } from 'express';
-import { IRequest } from '../../types';
+import { UserEntity } from '../../db/entities/user.entity';
 import { UserRoleEnum } from '../../enums/user-role.enum';
+import JwtService from '../../services/jwt.service';
+import { IRequest } from '../../types';
 
 export const authMiddleware = async (req: IRequest, res: Response, next) => {
   const token = (req.headers.authorization || '').split(' ')[1];

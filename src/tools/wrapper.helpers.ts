@@ -1,5 +1,6 @@
 import { validateOrReject } from 'class-validator';
 import { Request, Response } from 'express';
+import { Socket } from 'socket.io';
 import { BaseEntity } from 'typeorm';
 
 import { BaseRequest } from '../common/base.request';
@@ -10,6 +11,17 @@ export function wrapper(func: Function) {
   return async function (req: Request, res: Response, next: Function) {
     try {
       await func.apply(this, [req, res, next]);
+    } catch (err) {
+      next(err);
+    }
+  };
+}
+
+export function wsWrapper(func: Function) {
+  return async function (socket: Socket, next: Function) {
+    try {
+      await func.apply(this, [socket, next]);
+      next();
     } catch (err) {
       next(err);
     }
