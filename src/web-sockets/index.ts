@@ -1,15 +1,15 @@
-import { Express } from 'express';
-import { createServer } from 'http';
-import { isInteger, isObject } from 'lodash';
-import chatService from 'services/chat.service';
-import { Server, Socket } from 'socket.io';
-import { MessageEntity } from '../db/entities/message.entity';
-import { WsChatEventsEnum } from '../enums/ws-chat.events.enum';
-import { TDeleteMessage, TMessageEdit, TSendMessage } from '../types';
-import { UserEntity } from './../db/entities/user.entity';
-import { IChatPayload } from './../types';
-import { authSocketMiddleware } from './auth';
-import { WebsocketClientService } from './socket-clients.service';
+import { Express } from "express";
+import { createServer } from "http";
+import { isInteger, isObject } from "lodash";
+import chatService from "../services/chat.service";
+import { Server, Socket } from "socket.io";
+import { MessageEntity } from "../db/entities/message.entity";
+import { WsChatEventsEnum } from "../enums/ws-chat.events.enum";
+import { TDeleteMessage, TMessageEdit, TSendMessage, TSocketClient } from "../types";
+import { UserEntity } from "./../db/entities/user.entity";
+import { IChatPayload } from "./../types";
+import { authSocketMiddleware } from "./auth";
+import { WebsocketClientService } from "./socket-clients.service";
 
 export const registerSockets = (app: Express) => {
   const server = createServer(app);
@@ -22,10 +22,10 @@ export const registerSockets = (app: Express) => {
 
   io.use(authSocketMiddleware);
 
-  io.on('connection', (client: Socket) => {
+  io.on("connection", (client: TSocketClient) => {
     WebsocketClientService.joinUserConnection(client);
 
-    const user: UserEntity = (client as any).user;
+    const user: UserEntity = client.user;
 
     // client.use(
     //   async (
@@ -50,11 +50,7 @@ export const registerSockets = (app: Express) => {
         ...payload,
         senderId: user.id,
       });
-      WebsocketClientService.emitEventToChat(
-        payload.chatId,
-        WsChatEventsEnum.RECEIVE_MESSAGE,
-        message
-      );
+      WebsocketClientService.emitEventToChat(payload.chatId, WsChatEventsEnum.RECEIVE_MESSAGE, message);
     });
 
     client.on(WsChatEventsEnum.EDIT_MESSAGE, async (payload: TMessageEdit) => {
@@ -70,26 +66,19 @@ export const registerSockets = (app: Express) => {
       );
     });
 
-    client.on(
-      WsChatEventsEnum.DELETE_MESSAGE,
-      async (payload: TDeleteMessage) => {
-        if (!chatService.isMessageSender(user.id, payload.messageId)) {
-          return;
-        }
-
-        const deletedMessage = await chatService.deleteMessage(
-          payload.messageId
-        );
-
-        WebsocketClientService.emitEventToChat(
-          deletedMessage.chatId,
-          WsChatEventsEnum.MESSAGE_DELETED,
-          payload
-        );
+    client.on(WsChatEventsEnum.DELETE_MESSAGE, async (payload: TDeleteMessage) => {
+      if (!chatService.isMessageSender(user.id, payload.messageId)) {
+        return;
       }
-    );
 
-    client.on('disconnect', () => {});
+      const deletedMessage = await chatService.deleteMessage(payload.messageId);
+
+      WebsocketClientService.emitEventToChat(deletedMessage.chatId, WsChatEventsEnum.MESSAGE_DELETED, payload);
+    });
+
+    client.on("disconnect", () => {
+      WebsocketClientService.closeUserConnection(client);
+    });
   });
 
   return server;

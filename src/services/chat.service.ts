@@ -1,34 +1,29 @@
-import { MessageEntity } from 'db/entities/message.entity';
-import { intersection, map } from 'lodash';
-import { createQueryBuilder, In, QueryBuilder } from 'typeorm';
-import { TCreateMessage, TDeleteMessage, TMessageEdit } from 'types';
-import { ChatMemberEntity } from '../db/entities/chat-member.entity';
-import { ChatEntity } from '../db/entities/chat.entity';
+import { intersection, map } from "lodash";
+import { TCreateMessage, TMessageEdit } from "types";
+import { ChatMemberEntity } from "../db/entities/chat-member.entity";
+import { ChatEntity } from "../db/entities/chat.entity";
+import { MessageEntity } from "../db/entities/message.entity";
 
 class ChatService {
   async getUsersByChatId(chatId: number) {
     const members = await ChatMemberEntity.find({ where: { chatId } });
-    const users = await Promise.all(members.map((member) => member.user));
+    const users = await Promise.all(members.map(member => member.user));
     return users;
   }
 
   async getChatIdsByUserId(userId: number) {
     const chats = await ChatMemberEntity.find({
       where: { userId },
-      select: ['chatId'],
+      select: ["chatId"],
     });
 
-    return map(chats, 'chatId');
+    return map(chats, "chatId");
   }
 
   async isUsersAlreadyConnected(userIds: number[]) {
-    const usersToChats = await Promise.all(
-      userIds.map((userId) => this.getChatIdsByUserId(userId))
-    );
+    const usersToChats = await Promise.all(userIds.map(userId => this.getChatIdsByUserId(userId)));
 
-    const generalChats = usersToChats.reduce((acc, chats, i) =>
-      i === 0 ? chats : intersection(acc, chats)
-    );
+    const generalChats = usersToChats.reduce((acc, chats, i) => (i === 0 ? chats : intersection(acc, chats)));
 
     return !!generalChats.length;
   }
@@ -36,7 +31,7 @@ class ChatService {
   async isUserInChat(userId: number, chatId: number) {
     const users = await this.getUsersByChatId(chatId);
 
-    return !!users.find((userEnt) => userEnt.id === userId);
+    return !!users.find(userEnt => userEnt.id === userId);
   }
 
   async createMessage(data: TCreateMessage) {
@@ -71,11 +66,7 @@ class ChatService {
 
     await chat.save();
 
-    await Promise.all(
-      userIds.map((userId) =>
-        ChatMemberEntity.insert({ userId, chatId: chat.id })
-      )
-    );
+    await Promise.all(userIds.map(userId => ChatMemberEntity.insert({ userId, chatId: chat.id })));
 
     return true;
   }
