@@ -5,4 +5,5 @@ export enum WsChatEventsEnum {
   DELETE_MESSAGE = 'delete_message',
   RECEIVE_EDITED_MESSAGE = 'receive_edited_message',
   MESSAGE_DELETED = 'message_deleted',
+  SEND_BROADCAST_MESSAGE = 'send_broadcast_message',
 }

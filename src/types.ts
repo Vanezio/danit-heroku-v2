@@ -1,10 +1,10 @@
-import { Request } from "express";
-import { Socket } from "socket.io";
-import { BaseEntity } from "typeorm";
-import { ItemEntity } from "./db/entities/item.entity";
-import { UserEntity } from "./db/entities/user.entity";
-import { UserRoleEnum } from "./enums/user-role.enum";
-import { WsChatEventsEnum } from "./enums/ws-chat.events.enum";
+import { Request } from 'express';
+import { Socket } from 'socket.io';
+import { BaseEntity } from 'typeorm';
+import { ItemEntity } from './db/entities/item.entity';
+import { UserEntity } from './db/entities/user.entity';
+import { UserRoleEnum } from './enums/user-role.enum';
+import { WsChatEventsEnum } from './enums/ws-chat.events.enum';
 
 export interface IRequest extends Request {
   user: UserEntity;
@@ -20,7 +20,7 @@ export interface ISocketError extends Socket {
   err: Error;
 }
 
-export interface ISocket extends Omit<Socket, "handshake"> {
+export interface ISocket extends Omit<Socket, 'handshake'> {
   user?: UserEntity;
 
   event?: WsChatEventsEnum;
@@ -38,7 +38,10 @@ export interface JwtPayload {
   login: string;
 }
 
-export type TUserSimple = Omit<UserEntity, "password" | "purchases" | "items"> & {
+export type TUserSimple = Omit<
+  UserEntity,
+  'password' | 'purchases' | 'items'
+> & {
   items?: ItemEntity[];
   purchases?: ItemEntity[];
 };
@@ -59,9 +62,9 @@ export interface IChatPayload {
   data: string;
 }
 
-export type TSendMessage = Omit<IChatPayload, "messageId">;
+export type TSendMessage = Omit<IChatPayload, 'messageId'>;
 
-export type TDeleteMessage = Pick<IChatPayload, "messageId">;
+export type TDeleteMessage = Pick<IChatPayload, 'messageId'>;
 
 export type TCreateMessage = {
   senderId: number;
@@ -69,6 +72,11 @@ export type TCreateMessage = {
   data: string;
 };
 
-export type TMessageEdit = Pick<IChatPayload, "messageId" | "data">;
+export type TMessageEdit = Pick<IChatPayload, 'messageId' | 'data'>;
 
 export type TSocketClient = Socket & { user: UserEntity };
+
+export type IBroadcastMessagePayload = {
+  userIds: number[];
+  data: string;
+};

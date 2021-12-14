@@ -1,15 +1,21 @@
-import { Express } from "express";
-import { createServer } from "http";
-import { isInteger, isObject } from "lodash";
-import chatService from "../services/chat.service";
-import { Server, Socket } from "socket.io";
-import { MessageEntity } from "../db/entities/message.entity";
-import { WsChatEventsEnum } from "../enums/ws-chat.events.enum";
-import { TDeleteMessage, TMessageEdit, TSendMessage, TSocketClient } from "../types";
-import { UserEntity } from "./../db/entities/user.entity";
-import { IChatPayload } from "./../types";
-import { authSocketMiddleware } from "./auth";
-import { WebsocketClientService } from "./socket-clients.service";
+import { Express } from 'express';
+import { createServer } from 'http';
+import { isInteger, isObject } from 'lodash';
+import chatService from '../services/chat.service';
+import { Server, Socket } from 'socket.io';
+import { MessageEntity } from '../db/entities/message.entity';
+import { WsChatEventsEnum } from '../enums/ws-chat.events.enum';
+import {
+  IBroadcastMessagePayload,
+  TDeleteMessage,
+  TMessageEdit,
+  TSendMessage,
+  TSocketClient,
+} from '../types';
+import { UserEntity } from './../db/entities/user.entity';
+import { IChatPayload } from './../types';
+import { authSocketMiddleware } from './auth';
+import { WebsocketClientService } from './socket-clients.service';
 
 export const registerSockets = (app: Express) => {
   const server = createServer(app);
@@ -22,7 +28,7 @@ export const registerSockets = (app: Express) => {
 
   io.use(authSocketMiddleware);
 
-  io.on("connection", (client: TSocketClient) => {
+  io.on('connection', (client: TSocketClient) => {
     WebsocketClientService.joinUserConnection(client);
 
     const user: UserEntity = client.user;
@@ -50,7 +56,11 @@ export const registerSockets = (app: Express) => {
         ...payload,
         senderId: user.id,
       });
-      WebsocketClientService.emitEventToChat(payload.chatId, WsChatEventsEnum.RECEIVE_MESSAGE, message);
+      WebsocketClientService.emitEventToChat(
+        payload.chatId,
+        WsChatEventsEnum.RECEIVE_MESSAGE,
+        message
+      );
     });
 
     client.on(WsChatEventsEnum.EDIT_MESSAGE, async (payload: TMessageEdit) => {
@@ -66,17 +76,51 @@ export const registerSockets = (app: Express) => {
       );
     });
 
-    client.on(WsChatEventsEnum.DELETE_MESSAGE, async (payload: TDeleteMessage) => {
-      if (!chatService.isMessageSender(user.id, payload.messageId)) {
-        return;
+    client.on(
+      WsChatEventsEnum.DELETE_MESSAGE,
+      async (payload: TDeleteMessage) => {
+        if (!chatService.isMessageSender(user.id, payload.messageId)) {
+          return;
+        }
+
+        const deletedMessage = await chatService.deleteMessage(
+          payload.messageId
+        );
+
+        WebsocketClientService.emitEventToChat(
+          deletedMessage.chatId,
+          WsChatEventsEnum.MESSAGE_DELETED,
+          payload
+        );
       }
+    );
 
-      const deletedMessage = await chatService.deleteMessage(payload.messageId);
+    client.on(
+      WsChatEventsEnum.SEND_BROADCAST_MESSAGE,
+      async (payload: IBroadcastMessagePayload) => {
+        const { userIds, data } = payload;
 
-      WebsocketClientService.emitEventToChat(deletedMessage.chatId, WsChatEventsEnum.MESSAGE_DELETED, payload);
-    });
+        const chatIds = await chatService.getBroadcastChatIds(userIds, user.id);
 
-    client.on("disconnect", () => {
+        await Promise.all(
+          chatIds.map(async (chatId) => {
+            const newMessage = await chatService.createMessage({
+              senderId: user.id,
+              chatId,
+              data,
+            });
+
+            WebsocketClientService.emitEventToChat(
+              chatId,
+              WsChatEventsEnum.RECEIVE_MESSAGE,
+              newMessage
+            );
+          })
+        );
+      }
+    );
+
+    client.on('disconnect', () => {
       WebsocketClientService.closeUserConnection(client);
     });
   });
