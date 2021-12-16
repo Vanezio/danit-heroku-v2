@@ -1,16 +1,16 @@
-import { validateOrReject } from 'class-validator';
-import { Request, Response } from 'express';
-import { Socket } from 'socket.io';
-import { BaseEntity } from 'typeorm';
+import { validateOrReject } from "class-validator";
+import { NextFunction, Request, Response } from "express";
+import { Socket } from "socket.io";
+import { BaseEntity } from "typeorm";
 
-import { BaseRequest } from '../common/base.request';
-import { HttpValidationError } from '../common/errors';
-import { IEntityRequest, IRequest } from '../types';
+import { BaseRequest } from "../common/base.request";
+import { HttpValidationError } from "../common/errors";
+import { IEntityRequest, IRequest } from "../types";
 
 export function wrapper(func: Function) {
   return async function (req: Request, res: Response, next: Function) {
     try {
-      await func.apply(this, [req, res, next]);
+      await func.apply(null, [req, res, next]);
     } catch (err) {
       next(err);
     }
@@ -20,7 +20,7 @@ export function wrapper(func: Function) {
 export function wsWrapper(func: Function) {
   return async function (socket: Socket, next: Function) {
     try {
-      await func.apply(this, [socket, next]);
+      await func.apply(null, [socket, next]);
       next();
     } catch (err) {
       next(err);
@@ -29,15 +29,11 @@ export function wsWrapper(func: Function) {
 }
 
 export const checkEntityId = <T extends typeof BaseEntity>(entity: T) => {
-  return async (
-    req: IEntityRequest<BaseEntity>,
-    res: Response,
-    next: Function
-  ) => {
+  return async (req: IEntityRequest<BaseEntity>, res: Response, next: Function) => {
     const id = req.params.id;
 
     if (!id) {
-      return res.status(400).send('Invalid item id provided');
+      return res.status(400).send("Invalid item id provided");
     }
 
     const findedEntity = await entity.findOne(id);
@@ -45,7 +41,7 @@ export const checkEntityId = <T extends typeof BaseEntity>(entity: T) => {
     if (!findedEntity) {
       // return new HttpError("Invalid item id provided", 404);
       // TODO create wrapper for middleware and cover it
-      return res.status(404).send('Invalid item id provided');
+      return res.status(404).send("Invalid item id provided");
     }
 
     req.entity = findedEntity;
@@ -54,11 +50,11 @@ export const checkEntityId = <T extends typeof BaseEntity>(entity: T) => {
 };
 
 export const validationMiddleware = <T extends typeof BaseRequest>(entity: T) =>
-  wrapper(async (req: IRequest, res: Response, next) => {
+  wrapper(async (req: IRequest, res: Response, next: NextFunction) => {
     const body = req.body as unknown as T;
     const newEntity = new entity(body);
 
-    await validateOrReject(newEntity).catch((errs) => {
+    await validateOrReject(newEntity).catch(errs => {
       throw new HttpValidationError(errs);
     });
 
